@@ -1,0 +1,173 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+void insert();
+void create();
+void del();
+void display();
+void search();
+void totcount();
+struct node
+{
+    int info;
+    struct node*left,*right;
+ }*head,*p,*q,*r;
+void main()
+{
+    int op;
+    clrscr();
+    while(1)
+       {
+	printf("\n\n1.create\n2.insert\n3.display\n4.delete\n5.search\n6.totcount \n7.exit\n\n");
+	printf("\nEnter the option: ");
+	scanf("%d",&op);
+	switch(op)
+	 {
+case 1:
+create();
+break;
+case 2:
+insert();
+break;
+case 3:
+display();
+break;
+case 4:
+del();
+break;
+case 5:
+	            search();
+	            break;
+case 6:
+			totcount();
+			break;
+case 7:
+			exit(0);
+			break;
+		}
+	}
+}
+void create()
+{
+	int item;
+	head=NULL;
+	printf("\nEnter the item: \n");
+	scanf("%d",&item);
+	p=(struct node*)malloc(sizeof(struct node));
+	p->info=item;
+	p->left=NULL;
+	p->right=NULL;
+	head=p;
+}
+void insert()
+{
+  int pos,item,choice;
+	  q=head;
+	  p=(struct node*)malloc(sizeof(struct node));
+	  printf("\nEnter the item: ");
+	  scanf("%d",&item);
+	  printf("1.begin  2.middle 3.end");
+	  printf("\nEnter your choice : ");
+	  scanf("%d",&choice);
+	  p->info=item;
+	  if(choice==1)
+	  {
+p->left=NULL;
+		q->left=p;
+		p->right=q;
+		head=p;
+	  }
+	  if(choice==3)
+	  {
+		while(q->right!=NULL)
+		q=q->right;
+		q->right=p;
+		p->left=q;
+		p->right=NULL;
+	  }
+	if(choice==2)
+	{
+		  int i,pos;
+		  printf("\n Enter the position : ");
+		  scanf("%d",&pos);
+		
+
+  for(i=1;i<pos;i++)
+		  {
+			   r=q;
+			   q=q->right;
+		  }
+		  p->right=r->right;
+		  r->right=p;
+		  p->left=r;
+		  q->left=p;
+	  }
+}
+void del()
+{
+	  int choice;
+	  q=head;
+	  printf("\n\n1.begin  2.middle   3.end\n");
+	  printf("enter your choice : ");
+	  scanf("%d",&choice);
+	  if(choice==1)
+	  {
+		head=q->right;
+		(q->right)->left=NULL;
+	  }
+
+	  if(choice==3)
+	  {
+		q=head;
+		while(q->right!=NULL)
+		   {
+			  p=q;
+			  q=q->right;
+		   }
+			p->right=NULL;
+	  }
+	  if(choice==2)
+	  {
+		 int i,pos;
+		 printf("\nEnter the position : ");
+		 scanf("%d",&pos);
+		 q=head;
+		 for(i=1;i<pos;i++)
+		   {
+			   p=q;
+			   q=q->right;
+		    }
+		  p->right=q->right;
+		 (q->right)->left=p;
+	  }
+}
+void totcount()
+{
+	  int cnt=0;
+	  for(q=head;q!=NULL;q=q->right)
+	  cnt++;
+	  printf("\nTotal no. of nodes = %d",cnt);
+}
+void search()
+{
+	  int item;
+	  q=head;
+	  printf("\nEnter the item:");
+	  scanf("%d",&item);
+	  while(q!=NULL)
+	  {
+		if(q->info==item)
+		{
+			printf("\nItem is available");
+			return;
+		}
+		q=q->right;
+	  }
+	  printf("\nItem is not available");
+}
+
+void display()
+{       printf("\nThe item are:");
+        for(q=head;q!=NULL;q=q->right)
+       printf("%d->",q->info);
+}
