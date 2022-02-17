@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#define max 10
+int top = -1;
+int stack[max];
+void push( );
+void pop( );
+void display();
+void main()
+{
+int op;
+clrscr( );
+while(1)
+{
+printf("\n\t\t\t ARRAY IMPLEMENTATION OF STACK");
+printf("\n\n 1.push\n 2.pop\n 3.display\n 4.exit\n Enter the option: ");
+scanf("%d",&op);
+switch(op)
+      	{
+case 1:
+			push( );
+			break;
+case 2:
+			pop( );
+		break;
+case 3:
+			display( );
+			break;
+ 	     case 4:
+			exit(0);
+      }      
+   }
+}
+void push( )
+{
+ int item;
+ 	 printf("\nEnter item : ");
+ 	 scanf("%d",&item);
+  if(top==max-1)
+  {
+		printf("Stack is full");
+		return;
+ 	  }
+		top=top+1;
+		stack[top]=item;
+  }
+void pop( )
+{
+ if(top==-1)
+ {
+		printf("\nStack is empty");
+		return;
+ }
+ printf("\nDeleted item is : %d",stack[top]);
+ top=top-1;
+}
+void display( )
+{
+ 	 int i;
+ if(top == -1)
+{
+		printf("\nStack is empty");
+		return;
+}
+   else
+	for(i=top;i>=0;i--)
+	printf("  %d\t",stack[i]);
+}
+
