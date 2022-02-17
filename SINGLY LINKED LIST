@@ -1,0 +1,150 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+void create(void);
+void del(void);
+void display(void);
+void insert(void);
+void search(void);
+void totcount(void);
+struct node
+{
+int info;
+	struct node *next;
+}*head,*p,*q;
+void main()
+{
+ 	int x,op;
+  	clrscr();
+  	while(1)
+  	{
+   		printf("\n1.create\n2.insert\n3.count\n4.display\n5.delete\n6.search\n7.exit\n");
+  		printf("\nEnter the options : ");
+scanf("%d",&op);
+flushall();
+switch(op)
+   		{
+case 1:
+create();
+			break;
+case 2:
+			insert();
+			break;
+case 3:
+			totcount();
+			break;
+    		case 4:
+			display();
+			break;
+case 5:
+			del();
+			break;
+    		case 6:
+			search();
+			break;
+    		case 7:
+			exit(0);
+  		 }
+  }
+}
+void create()
+{
+ int item;
+ printf("\n Enter item : ");
+ scanf("%d",&item);
+ head=NULL;
+ p=(struct node*)malloc(sizeof(struct node));
+ p->info=item;
+ p->next=NULL;
+ head=p;
+}
+void insert()
+{
+  int choice, item, pos, i;
+  printf("\n1.begin \t  2.middle \t  3.end\n");
+  printf("\nEnter your option: ");
+  scanf("%d", &choice);
+  printf("\nEnter item: ");
+  scanf("%d", &item);
+  p=(struct node*)malloc(sizeof(struct node));
+  q=head;
+if(choice==1)
+  {
+     p->info=item;
+     p->next=head;;
+     head=p;
+  }
+  if(choice==3)
+  {
+  	   while(q->next!=NULL)
+   	  q = q->next;
+   	  p->info=item;
+  	   p->next=NULL;
+  	   q->next=p;
+ 	 }
+  if(choice==2)
+  {
+	printf("\nEnter position : ");
+  	scanf("%d",&pos);
+for(i=1;i<pos-1;i++)
+ 	q=q->next;
+   	p->info=item;
+p->next=q->next;
+q->next=p;
+  }
+}
+void display()
+{
+for(q=head;q->next!=NULL;q=q->next)
+printf("%d -> ",q->info);
+printf("%d",q->info);
+}
+void search()
+{
+int item;
+q=head;
+printf("enter the item which you want to search: ");
+scanf("%d",&item);
+while(q!=NULL)
+   {
+if(q->info==item)
+    	 	{
+			printf("\nGiven item is available") ;
+			return;
+    	  	}
+    	   q=q->next;
+      }
+  	 printf("\nThe item is not available\n");
+}
+void totcount()
+{
+int cnt=0;
+for(q=head;q!=NULL;q=q->next)
+	cnt++;
+printf("\n Total nodes: %d",cnt);
+}
+void del()
+{
+int choice,i,pos;
+printf("\n 1.begin   2.middle   3.end\n");
+scanf("%d",&choice);
+if(choice==1)
+  	{
+		printf("\n Deleted item is %d",head->info);
+head=head->next;
+  	}
+  	if(choice==3)
+  	{
+		for(q=head;(q->next)->next!=NULL;q=q->next);
+		printf("\n The deleted item is %d",(q->next)->next->info);
+		q->next=NULL;
+  	}
+  	if(choice==2)
+ 	 {
+		p=head;
+		scanf("%d",&pos);
+		for(i=1;i<pos-1;i++)
+		p=p->next;
+		p->next=p->next->next;
+  	 }
+}
